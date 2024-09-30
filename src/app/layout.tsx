@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Head  from "next/head";
+import Script  from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -16,6 +18,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <title>Myles is the best!🫀</title>
+        <link
+          rel="stylesheet"
+          href="https://jenil.github.io/bulmaswatch/yeti/bulmaswatch.min.css"
+        />
+      </Head>
+      <Script> 
+      <link
+        rel="stylesheet"
+        href="https://jenil.github.io/bulmaswatch/yeti/bulmaswatch.min.css"
+      />
+      </Script>
       <body className={inter.className}>{children}</body>
     </html>
   );
