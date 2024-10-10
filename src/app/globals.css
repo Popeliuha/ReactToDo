@@ -83,6 +83,10 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background-color: #1b1b1b;
+  height: 100%;  
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -98,6 +102,49 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+.due-date-container {
+  display: block;   /* Ensure it's treated as a block element */
+  margin-top: 0.5rem;   /* Add some space between title and due date */
+}
+
+.task-title.completed {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.card {
+  margin: 0 auto;  /* Center the card */
+}
+
+.card-content {
+  padding: 10px; /* Reduced padding to make the card shorter */
+}
+
+.content {
+  line-height: 1.5;  /* Adjust the line height for more spacing */
+  font-size: 0.9rem; /* Slightly smaller text to fit more in less space */
+}
+
+.small {
+  display: block; /* Force the due date to be on its own line */
+}
+
+.button.is-purple {
+  background-color: #800080;  /* Purple color */
+  border-color: #800080;
+  color: white;
+}
+
+.button.is-bordo {
+  background-color: #800020;  /* Burgundy (bordo) color */
+  border-color: #800020;
+  color: white;
+}
+
+.button.is-bordo:hover {
+  background-color: #a00030;  /* Lighter burgundy on hover */
+  border-color: #a00030;
 }
 
 @media (prefers-color-scheme: dark) {
