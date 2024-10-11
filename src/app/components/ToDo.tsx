@@ -42,10 +42,10 @@ const ToDo = ({ toDo, onToggleStatus, onSaveTask, onDeleteTask, moveTask }: ToDo
   const [, drop] = useDrop({
     accept: 'TASK',
     hover: (item: { position: number }) => {
-      if (item.position !== position) {
+      if (item.position !== toDo.position) {
         console.log(`Hovering task: Moving task from ${item.position} to ${position}`);
-        moveTask(item.position, position);
-        item.position = position;
+        moveTask(item.position, toDo.position);
+        item.position = toDo.position;
       }
     },
     drop: () => {
@@ -56,11 +56,13 @@ const ToDo = ({ toDo, onToggleStatus, onSaveTask, onDeleteTask, moveTask }: ToDo
   drag(drop(ref));
 
   return (
+
     <div
-      ref={ref}
-      className="card mb-2"
-      style={{ opacity: isDragging ? 0.5 : 1 }}
-    >
+    ref={ref}
+    className="card mb-2"
+    style={{ opacity: isDragging ? 0.5 : 1 }}
+  >
+    <div className="card mb-2">
       <div className="card-content">
         <div className="content is-flex is-align-items-center is-justify-content-space-between">
           <div className="is-flex is-align-items-center">
@@ -71,24 +73,66 @@ const ToDo = ({ toDo, onToggleStatus, onSaveTask, onDeleteTask, moveTask }: ToDo
               className="mr-2"
             />
 
-            <strong className={`task-title ${status ? 'completed' : ''}`}>
-              {title} | {category}
-            </strong>
+            {isEditing ? (
+              <span className="is-flex is-align-items-center">
+                <input
+                  className="input is-small mr-2"
+                  type="text"
+                  value={editedTitle}
+                  onChange={(e) => setEditedTitle(e.target.value)}
+                />
+                <input
+                  className="input is-small mr-2"
+                  type="text"
+                  value={editedCategory}
+                  onChange={(e) => setEditedCategory(e.target.value)}
+                />
+                <input
+                  className="input is-small mr-2"
+                  type="date"
+                  value={editedDate.toISOString().split('T')[0]}
+                  onChange={(e) => setEditedDate(new Date(e.target.value))}
+                />
+              </span>
+            ) : (
+              <>
+                <strong className={`task-title ${status ? 'completed' : ''}`}>
+                  {title} | {category}
+                </strong>
+              </>
+            )}
           </div>
 
           <div className="is-flex is-align-items-center">
-            <small className="mr-3">Due: {new Date(date).toLocaleDateString()}</small>
+            {!isEditing && (
+              <small className="mr-3">
+                Due: {new Date(date).toLocaleDateString()}
+              </small>
+            )}
 
-            <button className="button is-link is-small mr-2" onClick={() => setIsEditing(true)}>
-              Edit
-            </button>
+            {isEditing ? (
+              <button className="button is-success is-small mr-2" onClick={handleSave}>
+                Save
+              </button>
+            ) : (
+              <button
+                className="button is-link is-small mr-2"
+                onClick={() => setIsEditing(true)}
+              >
+                Edit
+              </button>
+            )}
 
-            <button className="button is-bordo is-small" onClick={() => onDeleteTask(id)}>
+            <button
+              className="button is-bordo is-small"
+              onClick={() => onDeleteTask(id)}
+            >
               Delete
             </button>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

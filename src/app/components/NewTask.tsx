@@ -21,7 +21,7 @@ export default function NewTask({ onAddTask }: NewTaskProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="field is-grouped">  {/* Group the fields into a single line */}
+      <div className="field is-grouped"> 
         <div className="control is-expanded">
           <input
             className="input"
